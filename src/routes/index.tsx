@@ -89,7 +89,7 @@ function Index() {
 
   return (
     <main className={`invitation-shell ${stage === "closed" ? "" : "is-open"}`}>
-      {stage !== "open" && <EnvelopeIntro opening={stage === "opening"} onOpen={openInvitation} />}
+      {stage !== "open" && <SkyIntro opening={stage === "opening"} onOpen={openInvitation} />}
       {stage !== "closed" && <MusicToggle playing={playing} onToggle={toggleMusic} />}
       <section ref={sceneRef} className="sky-scene" aria-label="Megha and Akash save the date">
         <img
