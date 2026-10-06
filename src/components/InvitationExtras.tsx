@@ -28,7 +28,7 @@ export function GoldSparkles({ count = 34 }: { count?: number }) {
   );
 }
 
-export function SkyIntro({ opening, onOpen }: { opening: boolean; onOpen: () => void }) {
+export function SkyIntro({ opening, onOpen, skyUrl }: { opening: boolean; onOpen: () => void; skyUrl: string }) {
   const stars = useMemo(
     () =>
       Array.from({ length: 90 }, (_, i) => {
@@ -45,6 +45,7 @@ export function SkyIntro({ opening, onOpen }: { opening: boolean; onOpen: () => 
   );
   return (
     <div className={`sky-intro ${opening ? "is-opening" : ""}`}>
+      <div className="sky-intro-bg" style={{ backgroundImage: `url(${skyUrl})` }} aria-hidden="true" />
       <div className="sky-stars" aria-hidden="true">
         {stars.map((s, i) => (
           <span
@@ -56,7 +57,7 @@ export function SkyIntro({ opening, onOpen }: { opening: boolean; onOpen: () => 
       <span className="sky-gate sky-gate-left" aria-hidden="true" />
       <span className="sky-gate sky-gate-right" aria-hidden="true" />
       <button type="button" className="sky-open-btn" onClick={onOpen} aria-label="Open the invitation">
-        <span className="sky-open-moon" aria-hidden="true" />
+        <span className="sky-open-ring" aria-hidden="true" />
         <span className="sky-open-text">Part the clouds</span>
       </button>
     </div>
