@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CalendarDays, MapPin } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import {
-  EnvelopeIntro,
+  SkyIntro,
   GoldSparkles,
   JaliCorners,
   JharokhaArch,
