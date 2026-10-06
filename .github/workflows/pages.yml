@@ -22,9 +22,7 @@ jobs:
       - uses: oven-sh/setup-bun@v2
       - run: bun install --frozen-lockfile
       - name: Build static site
-        run: |
-          echo 'BUILD_TARGET=pages' >> $GITHUB_ENV
-          bun run build:pages
+        run: bun run build:pages
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .output/public
