@@ -38,6 +38,34 @@ const events = [
 
 function Index() {
   const sceneRef = useRef<HTMLElement>(null);
+  const [stage, setStage] = useState<"closed" | "opening" | "open">("closed");
+  const [playing, setPlaying] = useState(false);
+
+  const openInvitation = () => {
+    if (stage !== "closed") return;
+    setStage("opening");
+    startMusic().then(() => setPlaying(true)).catch(() => {});
+    window.setTimeout(() => setStage("open"), 1700);
+  };
+
+  const toggleMusic = () => {
+    if (playing) {
+      stopMusic();
+      setPlaying(false);
+    } else {
+      startMusic().then(() => setPlaying(true)).catch(() => {});
+    }
+  };
+
+  useEffect(() => {
+    document.body.style.overflow = stage === "closed" ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [stage]);
+
+  useEffect(() => () => stopMusic(), []);
+
   useEffect(() => {
     const scene = sceneRef.current;
     if (!scene) return;
@@ -52,7 +80,9 @@ function Index() {
   }, []);
 
   return (
-    <main className="invitation-shell">
+    <main className={`invitation-shell ${stage === "closed" ? "" : "is-open"}`}>
+      {stage !== "open" && <EnvelopeIntro opening={stage === "opening"} onOpen={openInvitation} />}
+      {stage !== "closed" && <MusicToggle playing={playing} onToggle={toggleMusic} />
       <section ref={sceneRef} className="sky-scene" aria-label="Megha and Akash save the date">
         <img
           src={moonSky}
