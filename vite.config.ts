@@ -18,7 +18,6 @@ export default defineConfig({
         nitro: {
           preset: "static",
           baseURL: "/subtle-invitation/",
-          prerender: { crawlLinks: true },
         },
       }
     : {}),
@@ -26,6 +25,6 @@ export default defineConfig({
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },
-    ...(isPages ? { prerender: { enabled: true } } : {}),
+    ...(isPages ? { spa: { enabled: true } } : {}),
   },
 });
