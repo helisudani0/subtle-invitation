@@ -6,6 +6,7 @@ import moonSkyAsset from "../assets/moon-sky.asset.json";
 
 const monogram = monogramAsset.url;
 const moonSky = moonSkyAsset.url;
+const pagesMoonSky = "https://helisudani0.github.io/subtle-invitation/moon-sky.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -21,8 +22,8 @@ export const Route = createFileRoute("/")({
         content: "5–6 December 2026 · Shreenath Party Plot",
       },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: moonSky },
-      { name: "twitter:image", content: moonSky },
+      { property: "og:image", content: pagesMoonSky },
+      { name: "twitter:image", content: pagesMoonSky },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),

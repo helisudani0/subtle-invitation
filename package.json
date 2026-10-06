@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build",
+"build": "vite build",
+    "build:pages": "vite build -c vite.config.pages.ts; node scripts/prerender-pages.mjs",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
