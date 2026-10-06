@@ -29,8 +29,30 @@ export function GoldSparkles({ count = 34 }: { count?: number }) {
 }
 
 export function SkyIntro({ opening, onOpen }: { opening: boolean; onOpen: () => void }) {
+  const stars = useMemo(
+    () =>
+      Array.from({ length: 90 }, (_, i) => {
+        const r = (n: number) => (Math.sin(i * 57.31 + n * 91.7) + 1) / 2;
+        return {
+          left: `${r(1) * 100}%`,
+          top: `${r(2) * 100}%`,
+          size: 1 + r(3) * 2.2,
+          delay: `${r(4) * 6}s`,
+          duration: `${2.5 + r(5) * 4}s`,
+        };
+      }),
+    [],
+  );
   return (
     <div className={`sky-intro ${opening ? "is-opening" : ""}`}>
+      <div className="sky-stars" aria-hidden="true">
+        {stars.map((s, i) => (
+          <span
+            key={i}
+            style={{ left: s.left, top: s.top, width: s.size, height: s.size, animationDelay: s.delay, animationDuration: s.duration }}
+          />
+        ))}
+      </div>
       <span className="sky-gate sky-gate-left" aria-hidden="true" />
       <span className="sky-gate sky-gate-right" aria-hidden="true" />
       <button type="button" className="sky-open-btn" onClick={onOpen} aria-label="Open the invitation">
