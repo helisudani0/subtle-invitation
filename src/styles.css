@@ -19,6 +19,8 @@
  */
 
 @theme inline {
+  --font-display: "Cormorant Garamond", serif;
+  --font-sans: "Manrope", sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -59,12 +61,21 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-sky-deep: var(--sky-deep);
+  --color-sky-bright: var(--sky-bright);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-cloud: var(--cloud);
+  --color-festive-red: var(--festive-red);
+  --color-festive-pink: var(--festive-pink);
+  --color-festive-yellow: var(--festive-yellow);
+  --color-festive-teal: var(--festive-teal);
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --radius: 0.25rem;
+  --background: oklch(0.19 0.052 247);
+  --foreground: oklch(0.96 0.02 85);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.129 0.042 264.695);
   --popover: oklch(1 0 0);
@@ -95,6 +106,15 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+  --sky-deep: oklch(0.18 0.065 248);
+  --sky-bright: oklch(0.58 0.11 228);
+  --gold: oklch(0.82 0.12 79);
+  --gold-soft: oklch(0.93 0.045 82);
+  --cloud: oklch(0.96 0.018 79);
+  --festive-red: oklch(0.39 0.14 25);
+  --festive-pink: oklch(0.48 0.16 351);
+  --festive-yellow: oklch(0.79 0.14 78);
+  --festive-teal: oklch(0.32 0.08 187);
 }
 
 .dark {
@@ -135,10 +155,100 @@
 @layer base {
   * {
     border-color: var(--color-border);
+    box-sizing: border-box;
   }
 
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    margin: 0;
+    font-family: var(--font-sans);
+    overflow-x: hidden;
   }
+
+  html { scroll-behavior: smooth; }
+  button, a { -webkit-tap-highlight-color: transparent; }
+}
+
+@keyframes veil-left { to { transform: translate3d(-78%, 0, 70px) scale(1.08); opacity: .08; } }
+@keyframes veil-right { to { transform: translate3d(78%, 0, 70px) scale(1.08); opacity: .08; } }
+@keyframes invitation-arrive { from { opacity: 0; transform: translate3d(0, 30px, -60px) scale(.97); filter: blur(9px); } to { opacity: 1; transform: translate3d(0,0,0) scale(1); filter: blur(0); } }
+@keyframes cue-pulse { 0%,100% { transform: scaleY(.5); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } }
+
+.invitation-shell { background: var(--sky-deep); color: var(--foreground); }
+.sky-scene { --pointer-x: 0; --pointer-y: 0; position: relative; min-height: 100svh; overflow: hidden; perspective: 1100px; isolation: isolate; display: grid; place-items: center; }
+.sky-backdrop { position: absolute; inset: -4%; width: 108%; height: 108%; object-fit: cover; object-position: center 37%; transform: translate3d(calc(var(--pointer-x) * -7px), calc(var(--pointer-y) * -5px), -20px) scale(1.06); filter: saturate(.8) contrast(1.08) brightness(.76); }
+.sky-vignette { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, color-mix(in oklab, var(--sky-deep) 50%, transparent) 0%, transparent 30%, color-mix(in oklab, var(--sky-deep) 26%, transparent) 58%, color-mix(in oklab, var(--sky-deep) 88%, transparent) 100%); }
+.cloud-veil { position: absolute; z-index: 5; top: -12%; bottom: -12%; width: 59%; opacity: .55; background: radial-gradient(ellipse at center, color-mix(in oklab, var(--cloud) 62%, transparent), color-mix(in oklab, var(--cloud) 14%, transparent) 48%, transparent 74%); filter: blur(30px); will-change: transform, opacity; }
+.cloud-veil-left { left: -13%; transform-origin: left center; animation: veil-left 3.4s cubic-bezier(.66,0,.17,1) .2s both; }
+.cloud-veil-right { right: -13%; transform-origin: right center; animation: veil-right 3.4s cubic-bezier(.66,0,.17,1) .2s both; }
+.hero-copy { z-index: 4; width: min(92vw, 1000px); margin-top: 22vh; text-align: center; transform-style: preserve-3d; opacity: 0; animation: invitation-arrive 1.8s cubic-bezier(.2,.75,.2,1) 1.8s forwards; }
+.monogram { width: clamp(104px, 13vw, 160px); height: auto; margin: 0 auto 12px; object-fit: contain; filter: drop-shadow(0 8px 22px color-mix(in oklab, var(--sky-deep) 66%, transparent)); }
+.save-label { margin: 0 0 20px; font-size: 9px; font-weight: 600; letter-spacing: .5em; color: var(--gold-soft); }
+.hero-copy h1 { margin: 0; display: flex; justify-content: center; align-items: baseline; gap: clamp(13px,3vw,40px); font-family: var(--font-display); font-size: clamp(76px,11vw,154px); line-height: .78; font-weight: 400; text-shadow: 0 12px 45px color-mix(in oklab, var(--sky-deep) 72%, transparent); }
+.hero-copy h1 em { font-size: .34em; font-weight: 400; color: var(--gold); }
+.date-line { display: flex; justify-content: center; align-items: center; gap: 13px; margin-top: clamp(32px,5vh,52px); font-size: 16px; letter-spacing: .32em; }
+.date-line i { width: 9px; height: 1px; background: color-mix(in oklab, var(--gold-soft) 60%, transparent); }
+.descend-cue { position: absolute; z-index: 8; bottom: 24px; left: 50%; translate: -50% 0; display: flex; flex-direction: column; align-items: center; gap: 12px; color: var(--foreground); text-decoration: none; opacity: 0; animation: invitation-arrive 1s ease 3.4s forwards; }
+.descend-cue span { font-size: 8px; letter-spacing: .32em; white-space: nowrap; }
+.descend-cue i { width: 1px; height: 38px; background: var(--gold-soft); animation: cue-pulse 2s ease-in-out infinite; }
+.celebrations-section { position: relative; z-index: 10; min-height: 115svh; display: grid; place-items: center; padding: clamp(90px,12vw,160px) 20px; overflow: hidden; color: var(--sky-deep); isolation: isolate; background-image: linear-gradient(180deg, var(--sky-deep), color-mix(in oklab, var(--sky-deep) 70%, transparent) 20%, color-mix(in oklab, var(--sky-deep) 84%, transparent)), url("/__l5e/assets-v1/63ac2b61-1e42-45ac-9cdf-6fbfc4750cee/ontario-full-moon.jpg"); background-position: center, center bottom; background-size: cover; }
+.celebrations-section::before,.celebrations-section::after { content: ""; position: absolute; z-index: -1; width: 56vw; height: 75%; top: 4%; background: radial-gradient(ellipse, color-mix(in oklab, var(--cloud) 68%, transparent), color-mix(in oklab, var(--cloud) 12%, transparent) 58%, transparent 74%); filter: blur(24px); opacity: .5; }
+.celebrations-section::before { left: -30%; }.celebrations-section::after { right: -30%; }
+.invitation-paper { position: relative; width: min(620px, 88vw); padding: clamp(54px,8vw,88px) clamp(28px,6vw,68px) clamp(46px,7vw,72px); text-align: center; background: linear-gradient(158deg, color-mix(in oklab, var(--cloud) 97%, white) 0%, color-mix(in oklab, var(--gold-soft) 26%, var(--cloud)) 58%, color-mix(in oklab, var(--cloud) 99%, transparent) 100%); border: 1px solid color-mix(in oklab, var(--gold) 80%, transparent); box-shadow: 0 44px 110px color-mix(in oklab, var(--sky-deep) 82%, transparent), 0 8px 26px color-mix(in oklab, var(--sky-deep) 42%, transparent), inset 0 0 0 1px color-mix(in oklab, var(--gold) 28%, transparent), inset 0 0 0 6px color-mix(in oklab, var(--gold) 12%, transparent), inset 0 0 0 7px color-mix(in oklab, var(--gold) 34%, transparent); backdrop-filter: blur(14px); }
+.invitation-paper::before,.invitation-paper::after { content: ""; position: absolute; width: 70px; height: 70px; border-color: var(--gold); opacity: .62; }
+.invitation-paper::before { top: 16px; left: 16px; border-top: 1px solid; border-left: 1px solid; }.invitation-paper::after { right: 16px; bottom: 16px; border-right: 1px solid; border-bottom: 1px solid; }
+.paper-monogram { width: 92px; height: auto; margin: 0 auto 10px; object-fit: contain; filter: sepia(.1) drop-shadow(0 4px 12px color-mix(in oklab, var(--gold) 24%, transparent)); }
+.section-heading { margin: 0 auto 42px; }
+.section-heading .invite-line { margin: 0 0 20px; font-family: var(--font-display); font-size: 22px; line-height: 1.24; font-style: italic; letter-spacing: .02em; text-transform: none; color: color-mix(in oklab, var(--sky-deep) 76%, var(--gold)); }
+.section-heading h2 { margin: 0; font-family: var(--font-display); font-size: clamp(48px,7vw,72px); line-height: .9; font-weight: 400; }
+.section-heading h2::after { content: ""; display: block; width: 92px; height: 1px; margin: 26px auto 0; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.event-list { border-top: 1px solid color-mix(in oklab, var(--gold) 55%, transparent); }
+.event-row { min-height: 88px; display: grid; grid-template-columns: 70px 1fr auto; align-items: center; gap: 14px; border-bottom: 1px solid color-mix(in oklab, var(--gold) 45%, transparent); }
+.event-date { display: flex; align-items: baseline; gap: 5px; }
+.event-date strong { font-family: var(--font-display); font-size: 34px; font-weight: 400; line-height: 1; }
+.event-date span { font-size: 8px; font-weight: 600; letter-spacing: .12em; }
+.event-row time { font-size: 13px; font-weight: 600; letter-spacing: .12em; }
+.event-row h3 { margin: 0; text-align: left; font-family: var(--font-display); font-size: clamp(25px,3vw,34px); line-height: .9; font-weight: 400; }
+.event-row time { text-align: right; }
+.venue-copy { margin: 40px 0 22px; }
+.venue-copy p { margin: 0 0 8px; font-size: 8px; letter-spacing: .25em; }
+.venue-copy h3 { margin: 0; font-family: var(--font-display); font-size: clamp(31px,4vw,43px); font-weight: 400; }
+.venue-actions { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+.venue-link,.calendar-link { display: inline-flex; align-items: center; gap: 8px; padding: 13px 16px; border: 1px solid color-mix(in oklab, var(--gold) 60%, transparent); background: color-mix(in oklab, var(--cloud) 65%, transparent); color: var(--sky-deep); text-decoration: none; font-size: 9px; letter-spacing: .08em; backdrop-filter: blur(3px); transition: background .25s; }
+.venue-link:hover,.calendar-link:hover { background: var(--gold-soft); }
+.paper-signoff { margin: 34px 0 0; font-family: var(--font-display); font-size: 23px; font-style: italic; color: color-mix(in oklab, var(--sky-deep) 80%, var(--gold)); }
+.invitation-footer { display: flex; align-items: center; justify-content: center; gap: 25px; padding: 44px 22px; border-top: 1px solid color-mix(in oklab, var(--cloud) 14%, transparent); font-size: 9px; letter-spacing: .3em; }
+.invitation-footer i { width: 44px; height: 1px; background: var(--gold); }
+
+@media (max-width: 700px) {
+  .sky-scene { min-height: 92svh; }
+  .sky-backdrop { object-position: center 32%; }
+  .hero-copy { margin-top: 24vh; }
+  .monogram { width: 104px; margin-bottom: 10px; }
+  .hero-copy h1 { flex-direction: column; align-items: center; gap: 9px; font-size: clamp(73px,23vw,112px); line-height: .67; }
+  .hero-copy h1 em { font-size: 32px; }
+  .save-label { margin-bottom: 36px; }
+  .date-line { margin-top: 52px; gap: 8px; font-size: 14px; }.date-line i { width: 7px; }
+  .descend-cue { bottom: 12px; }
+  .celebrations-section { min-height: 1120px; padding: 90px 12px; }
+  .invitation-paper { width: min(92vw,430px); padding: 48px 22px; }
+  .section-heading { margin-bottom: 28px; }.section-heading h2 { font-size: 46px; }
+  .event-row { min-height: 82px; grid-template-columns: 55px 1fr; gap: 8px; }.event-row time { grid-column: 2; margin-top: -22px; text-align: left; }.event-row h3 { font-size: clamp(24px,8vw,31px); }.event-date strong { font-size: 30px; }
+  .venue-copy { margin-top: 30px; }.venue-actions { flex-direction: column; align-items: center; }.venue-link,.calendar-link { width: 170px; justify-content: center; }
+  .invitation-footer { gap: 12px; }.invitation-footer i { width: 20px; }
+}
+
+@media (min-width: 701px) and (max-width: 900px) {
+  .invitation-paper { width: min(620px, 78vw); padding: 54px 48px; }
+  .section-heading { margin-bottom: 18px; }.section-heading h2 { font-size: 44px; }
+  .event-row { min-height: 64px; grid-template-columns: 52px 1fr auto; gap: 7px; }
+  .event-row h3 { font-size: 25px; }.event-date strong { font-size: 28px; }
+  .venue-copy { margin: 18px 0 14px; }.venue-copy h3 { font-size: 30px; }
+  .venue-link,.calendar-link { padding: 9px 10px; font-size: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,*::before,*::after { animation-duration: .01ms !important; animation-delay: 0ms !important; scroll-behavior: auto !important; }
+  .cloud-veil { display: none; }
 }
