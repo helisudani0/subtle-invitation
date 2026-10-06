@@ -1,7 +1,11 @@
 // Standalone static build for GitHub Pages (used by .github/workflows/pages.yml):
-//   vite build -c vite.config.pages.ts  →  fully static site in .output/public
-// This bypasses the Lovable build plugin (whose prerender shim targets Cloudflare)
-// and emits a pure client-side SPA: an index.html shell plus hashed assets.
+//   vite build -c vite.config.pages.ts  →  static site in .output/public
+// This bypasses the Lovable build plugin (whose prerender shim targets Cloudflare).
+// NOTE: nitro 3 beta has a known bug where the FINAL "nitro environment" build step
+// fails with "rolldownOptions.input should not be an html file when building for SSR"
+// when preset is "static" (upstream: solidjs/solid-start#2288, nitrojs/nitro#3843).
+// Everything we need (.output/public with prerendered index.html) is written BEFORE
+// that step, so the workflow tolerates the nonzero exit and verifies the output.
 import { defineConfig } from "vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
@@ -14,8 +18,12 @@ export default defineConfig({
   plugins: [
     tsConfigPaths({ projects: ["./tsconfig.json"] }),
     tailwindcss(),
-    tanstackStart({ spa: { enabled: true } }),
+    tanstackStart(),
     viteReact(),
-    nitro({ preset: "static", baseURL: "/subtle-invitation/" }),
+    nitro({
+      preset: "static",
+      baseURL: "/subtle-invitation/",
+      prerender: { routes: ["/"] },
+    }),
   ],
 });
