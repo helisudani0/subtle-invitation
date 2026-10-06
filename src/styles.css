@@ -270,26 +270,33 @@
 .jharokha-arch { position: absolute; top: 14px; left: 50%; translate: -50% 0; width: 46%; height: auto; color: var(--gold); opacity: .7; }
 
 /* Sky intro — clouds part to reveal the invitation */
-@keyframes gate-left { to { transform: translateX(-104%); } }
-@keyframes gate-right { to { transform: translateX(104%); } }
+@keyframes gate-left { to { transform: translateX(-108%); } }
+@keyframes gate-right { to { transform: translateX(108%); } }
 @keyframes sky-intro-fade { 0%, 70% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
-@keyframes moon-pulse { 0%, 100% { box-shadow: 0 0 24px 4px color-mix(in oklab, var(--gold-soft) 45%, transparent); } 50% { box-shadow: 0 0 44px 12px color-mix(in oklab, var(--gold-soft) 65%, transparent); } }
+@keyframes moon-pulse { 0%, 100% { box-shadow: 0 0 30px 6px color-mix(in oklab, var(--gold-soft) 50%, transparent), 0 0 90px 30px color-mix(in oklab, var(--gold-soft) 22%, transparent); } 50% { box-shadow: 0 0 52px 14px color-mix(in oklab, var(--gold-soft) 70%, transparent), 0 0 130px 50px color-mix(in oklab, var(--gold-soft) 32%, transparent); } }
+@keyframes star-twinkle { 0%, 100% { opacity: .15; transform: scale(.7); } 50% { opacity: 1; transform: scale(1.15); } }
+@keyframes cloud-drift-a { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(2.5%); } }
+@keyframes cloud-drift-b { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-2.5%); } }
 .sky-intro { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; overflow: hidden; background: var(--sky-deep); }
 .sky-intro.is-opening { animation: sky-intro-fade 1.7s ease forwards; pointer-events: none; }
-.sky-gate { position: absolute; top: -6%; bottom: -6%; width: 56%; background: linear-gradient(180deg, color-mix(in oklab, var(--sky-bright) 24%, var(--sky-deep)), var(--sky-deep) 70%); will-change: transform; }
-.sky-gate::before, .sky-gate::after { content: ""; position: absolute; top: 0; bottom: 0; width: 100%; background: radial-gradient(ellipse at center, color-mix(in oklab, var(--cloud) 55%, transparent), transparent 68%); filter: blur(26px); }
-.sky-gate-left { left: 0; border-right: 1px solid color-mix(in oklab, var(--gold) 30%, transparent); box-shadow: 24px 0 60px color-mix(in oklab, var(--sky-deep) 80%, transparent); }
-.sky-gate-left::before { left: -30%; }
-.sky-gate-left::after { right: -45%; }
-.sky-gate-right { right: 0; border-left: 1px solid color-mix(in oklab, var(--gold) 30%, transparent); box-shadow: -24px 0 60px color-mix(in oklab, var(--sky-deep) 80%, transparent); }
-.sky-gate-right::before { right: -30%; }
-.sky-gate-right::after { left: -45%; }
+.sky-intro-bg { position: absolute; inset: 0; background-size: cover; background-position: center 30%; }
+.sky-stars { position: absolute; inset: 0; }
+.sky-stars span { position: absolute; border-radius: 50%; background: var(--cloud); box-shadow: 0 0 5px 1px color-mix(in oklab, var(--cloud) 60%, transparent); animation: star-twinkle 4s ease-in-out infinite; }
+.sky-gate { position: absolute; top: -4%; bottom: -4%; width: 56%; will-change: transform; background: linear-gradient(180deg, color-mix(in oklab, var(--sky-deep) 82%, transparent), color-mix(in oklab, var(--sky-deep) 68%, transparent) 50%, color-mix(in oklab, var(--sky-deep) 85%, transparent)); }
+.sky-gate::before { content: ""; position: absolute; top: 0; bottom: 0; width: 100%; pointer-events: none; background:
+  radial-gradient(ellipse 46% 15% at 55% 10%, color-mix(in oklab, var(--cloud) 22%, transparent), transparent 70%),
+  radial-gradient(ellipse 50% 17% at 45% 30%, color-mix(in oklab, var(--cloud) 18%, transparent), transparent 70%),
+  radial-gradient(ellipse 48% 16% at 58% 52%, color-mix(in oklab, var(--cloud) 20%, transparent), transparent 70%),
+  radial-gradient(ellipse 46% 15% at 42% 74%, color-mix(in oklab, var(--cloud) 17%, transparent), transparent 70%),
+  radial-gradient(ellipse 44% 14% at 55% 92%, color-mix(in oklab, var(--cloud) 19%, transparent), transparent 70%); filter: blur(10px); }
+.sky-gate-left { left: 0; border-right: 1px solid color-mix(in oklab, var(--gold) 30%, transparent); box-shadow: 30px 0 70px color-mix(in oklab, var(--sky-deep) 85%, transparent); animation: cloud-drift-a 9s ease-in-out infinite; }
+.sky-gate-right { right: 0; border-left: 1px solid color-mix(in oklab, var(--gold) 30%, transparent); box-shadow: -30px 0 70px color-mix(in oklab, var(--sky-deep) 85%, transparent); animation: cloud-drift-b 9s ease-in-out infinite; }
 .is-opening .sky-gate-left { animation: gate-left 1.5s cubic-bezier(.66,0,.17,1) .15s forwards; }
 .is-opening .sky-gate-right { animation: gate-right 1.5s cubic-bezier(.66,0,.17,1) .15s forwards; }
-.sky-open-btn { position: relative; z-index: 2; display: grid; place-items: center; gap: 18px; padding: 0; border: 0; background: none; cursor: pointer; transition: opacity .4s, transform .4s; }
+.sky-open-btn { position: relative; z-index: 2; display: grid; place-items: center; padding: 0; border: 0; background: none; cursor: pointer; transition: opacity .4s, transform .4s; }
 .is-opening .sky-open-btn { opacity: 0; transform: scale(1.2); }
-.sky-open-moon { width: 84px; height: 84px; border-radius: 50%; background: radial-gradient(circle at 38% 34%, var(--cloud), color-mix(in oklab, var(--gold-soft) 55%, var(--cloud)) 58%, color-mix(in oklab, var(--gold) 60%, var(--sky-deep))); animation: moon-pulse 3s ease-in-out infinite; }
-.sky-open-text { font-size: 9px; letter-spacing: .42em; text-transform: uppercase; color: var(--gold-soft); opacity: .9; }
+.sky-open-ring { grid-area: 1 / 1; width: 130px; height: 130px; border-radius: 50%; border: 1px solid color-mix(in oklab, var(--gold) 70%, transparent); background: color-mix(in oklab, var(--sky-deep) 45%, transparent); animation: moon-pulse 3.2s ease-in-out infinite; }
+.sky-open-text { grid-area: 1 / 1; font-size: 10px; letter-spacing: .42em; text-transform: uppercase; color: var(--gold-soft); text-shadow: 0 0 12px color-mix(in oklab, var(--gold) 45%, transparent); white-space: nowrap; text-align: center; padding-left: .42em; }
 
 /* Music toggle */
 @keyframes music-ring { 0% { transform: scale(1); opacity: .6; } 100% { transform: scale(1.7); opacity: 0; } }
