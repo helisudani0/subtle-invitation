@@ -1,6 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CalendarDays, MapPin } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import {
+  EnvelopeIntro,
+  GoldSparkles,
+  JaliCorners,
+  JharokhaArch,
+  MusicToggle,
+} from "../components/InvitationExtras";
+import { startMusic, stopMusic } from "../lib/ambient-music";
 import monogramAsset from "../assets/monogram.asset.json";
 import moonSkyAsset from "../assets/moon-sky.asset.json";
 
@@ -38,6 +46,34 @@ const events = [
 
 function Index() {
   const sceneRef = useRef<HTMLElement>(null);
+  const [stage, setStage] = useState<"closed" | "opening" | "open">("closed");
+  const [playing, setPlaying] = useState(false);
+
+  const openInvitation = () => {
+    if (stage !== "closed") return;
+    setStage("opening");
+    startMusic().then(() => setPlaying(true)).catch(() => {});
+    window.setTimeout(() => setStage("open"), 1700);
+  };
+
+  const toggleMusic = () => {
+    if (playing) {
+      stopMusic();
+      setPlaying(false);
+    } else {
+      startMusic().then(() => setPlaying(true)).catch(() => {});
+    }
+  };
+
+  useEffect(() => {
+    document.body.style.overflow = stage === "closed" ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [stage]);
+
+  useEffect(() => () => stopMusic(), []);
+
   useEffect(() => {
     const scene = sceneRef.current;
     if (!scene) return;
@@ -52,7 +88,9 @@ function Index() {
   }, []);
 
   return (
-    <main className="invitation-shell">
+    <main className={`invitation-shell ${stage === "closed" ? "" : "is-open"}`}>
+      {stage !== "open" && <EnvelopeIntro opening={stage === "opening"} onOpen={openInvitation} />}
+      {stage !== "closed" && <MusicToggle playing={playing} onToggle={toggleMusic} />}
       <section ref={sceneRef} className="sky-scene" aria-label="Megha and Akash save the date">
         <img
           src={moonSky}
@@ -62,6 +100,7 @@ function Index() {
           className="sky-backdrop"
         />
         <div className="sky-vignette" />
+        <GoldSparkles />
         <div className="cloud-veil cloud-veil-left" aria-hidden="true" />
         <div className="cloud-veil cloud-veil-right" aria-hidden="true" />
 
@@ -91,7 +130,10 @@ function Index() {
       </section>
 
       <section id="celebrations" className="celebrations-section">
+        <GoldSparkles count={22} />
         <div className="invitation-paper">
+          <JaliCorners />
+          <JharokhaArch />
           <img
             src={monogram}
             width={1024}
