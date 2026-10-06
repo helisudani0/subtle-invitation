@@ -282,7 +282,7 @@
 .sky-intro-bg { position: absolute; inset: 0; background-size: cover; background-position: center 30%; }
 .sky-stars { position: absolute; inset: 0; }
 .sky-stars span { position: absolute; border-radius: 50%; background: var(--cloud); box-shadow: 0 0 5px 1px color-mix(in oklab, var(--cloud) 60%, transparent); animation: star-twinkle 4s ease-in-out infinite; }
-.sky-gate { position: absolute; top: -4%; bottom: -4%; width: 56%; will-change: transform; backdrop-filter: blur(14px) brightness(.45) saturate(.8); background: color-mix(in oklab, var(--sky-deep) 55%, transparent); }
+.sky-gate { position: absolute; top: -4%; bottom: -4%; width: 56%; will-change: transform; background: linear-gradient(180deg, color-mix(in oklab, var(--sky-deep) 82%, transparent), color-mix(in oklab, var(--sky-deep) 68%, transparent) 50%, color-mix(in oklab, var(--sky-deep) 85%, transparent)); }
 .sky-gate::before { content: ""; position: absolute; top: 0; bottom: 0; width: 100%; pointer-events: none; background:
   radial-gradient(ellipse 46% 15% at 55% 10%, color-mix(in oklab, var(--cloud) 22%, transparent), transparent 70%),
   radial-gradient(ellipse 50% 17% at 45% 30%, color-mix(in oklab, var(--cloud) 18%, transparent), transparent 70%),
@@ -295,8 +295,8 @@
 .is-opening .sky-gate-right { animation: gate-right 1.5s cubic-bezier(.66,0,.17,1) .15s forwards; }
 .sky-open-btn { position: relative; z-index: 2; display: grid; place-items: center; padding: 0; border: 0; background: none; cursor: pointer; transition: opacity .4s, transform .4s; }
 .is-opening .sky-open-btn { opacity: 0; transform: scale(1.2); }
-.sky-open-ring { width: 120px; height: 120px; border-radius: 50%; border: 1px solid color-mix(in oklab, var(--gold) 65%, transparent); animation: moon-pulse 3.2s ease-in-out infinite; }
-.sky-open-text { position: absolute; font-size: 10px; letter-spacing: .42em; text-transform: uppercase; color: var(--gold-soft); text-shadow: 0 0 12px color-mix(in oklab, var(--gold) 45%, transparent); white-space: nowrap; }
+.sky-open-ring { grid-area: 1 / 1; width: 130px; height: 130px; border-radius: 50%; border: 1px solid color-mix(in oklab, var(--gold) 70%, transparent); background: color-mix(in oklab, var(--sky-deep) 45%, transparent); animation: moon-pulse 3.2s ease-in-out infinite; }
+.sky-open-text { grid-area: 1 / 1; font-size: 10px; letter-spacing: .42em; text-transform: uppercase; color: var(--gold-soft); text-shadow: 0 0 12px color-mix(in oklab, var(--gold) 45%, transparent); white-space: nowrap; text-align: center; padding-left: .42em; }
 
 /* Music toggle */
 @keyframes music-ring { 0% { transform: scale(1); opacity: .6; } 100% { transform: scale(1.7); opacity: 0; } }
