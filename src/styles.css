@@ -277,35 +277,26 @@
 @keyframes star-twinkle { 0%, 100% { opacity: .15; transform: scale(.7); } 50% { opacity: 1; transform: scale(1.15); } }
 @keyframes cloud-drift-a { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(2.5%); } }
 @keyframes cloud-drift-b { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-2.5%); } }
-.sky-intro { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; overflow: hidden; background: radial-gradient(ellipse 120% 90% at 50% 30%, color-mix(in oklab, var(--sky-bright) 55%, var(--sky-deep)), var(--sky-deep) 75%); }
+.sky-intro { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; overflow: hidden; background: var(--sky-deep); }
 .sky-intro.is-opening { animation: sky-intro-fade 1.7s ease forwards; pointer-events: none; }
+.sky-intro-bg { position: absolute; inset: 0; background-size: cover; background-position: center 30%; }
 .sky-stars { position: absolute; inset: 0; }
 .sky-stars span { position: absolute; border-radius: 50%; background: var(--cloud); box-shadow: 0 0 5px 1px color-mix(in oklab, var(--cloud) 60%, transparent); animation: star-twinkle 4s ease-in-out infinite; }
-.sky-gate { position: absolute; top: -8%; bottom: -8%; width: 58%; will-change: transform; background:
-  radial-gradient(ellipse 55% 22% at 70% 18%, color-mix(in oklab, var(--cloud) 34%, transparent), transparent 70%),
-  radial-gradient(ellipse 60% 26% at 30% 42%, color-mix(in oklab, var(--cloud) 26%, transparent), transparent 70%),
-  radial-gradient(ellipse 65% 24% at 65% 66%, color-mix(in oklab, var(--cloud) 30%, transparent), transparent 70%),
-  radial-gradient(ellipse 55% 22% at 35% 88%, color-mix(in oklab, var(--cloud) 24%, transparent), transparent 70%),
-  linear-gradient(180deg, color-mix(in oklab, var(--sky-bright) 38%, var(--sky-deep)), var(--sky-deep) 72%); }
-.sky-gate::before, .sky-gate::after { content: ""; position: absolute; top: -4%; bottom: -4%; width: 100%; pointer-events: none; }
-.sky-gate::before { background:
-  radial-gradient(ellipse 40% 14% at 60% 12%, color-mix(in oklab, var(--cloud) 50%, transparent), transparent 70%),
-  radial-gradient(ellipse 46% 16% at 40% 34%, color-mix(in oklab, var(--cloud) 42%, transparent), transparent 70%),
-  radial-gradient(ellipse 44% 15% at 62% 56%, color-mix(in oklab, var(--cloud) 48%, transparent), transparent 70%),
-  radial-gradient(ellipse 42% 14% at 38% 78%, color-mix(in oklab, var(--cloud) 40%, transparent), transparent 70%),
-  radial-gradient(ellipse 40% 13% at 58% 94%, color-mix(in oklab, var(--cloud) 44%, transparent), transparent 70%); filter: blur(14px); }
-.sky-gate::after { background:
-  radial-gradient(ellipse 34% 11% at 55% 24%, color-mix(in oklab, var(--gold-soft) 26%, transparent), transparent 70%),
-  radial-gradient(ellipse 36% 12% at 48% 48%, color-mix(in oklab, var(--gold-soft) 22%, transparent), transparent 70%),
-  radial-gradient(ellipse 34% 11% at 58% 70%, color-mix(in oklab, var(--gold-soft) 24%, transparent), transparent 70%); filter: blur(20px); }
-.sky-gate-left { left: 0; border-right: 1px solid color-mix(in oklab, var(--gold) 35%, transparent); box-shadow: 30px 0 70px color-mix(in oklab, var(--sky-deep) 85%, transparent); animation: cloud-drift-a 9s ease-in-out infinite; }
-.sky-gate-right { right: 0; border-left: 1px solid color-mix(in oklab, var(--gold) 35%, transparent); box-shadow: -30px 0 70px color-mix(in oklab, var(--sky-deep) 85%, transparent); animation: cloud-drift-b 9s ease-in-out infinite; }
+.sky-gate { position: absolute; top: -4%; bottom: -4%; width: 56%; will-change: transform; backdrop-filter: blur(14px) brightness(.45) saturate(.8); background: color-mix(in oklab, var(--sky-deep) 55%, transparent); }
+.sky-gate::before { content: ""; position: absolute; top: 0; bottom: 0; width: 100%; pointer-events: none; background:
+  radial-gradient(ellipse 46% 15% at 55% 10%, color-mix(in oklab, var(--cloud) 22%, transparent), transparent 70%),
+  radial-gradient(ellipse 50% 17% at 45% 30%, color-mix(in oklab, var(--cloud) 18%, transparent), transparent 70%),
+  radial-gradient(ellipse 48% 16% at 58% 52%, color-mix(in oklab, var(--cloud) 20%, transparent), transparent 70%),
+  radial-gradient(ellipse 46% 15% at 42% 74%, color-mix(in oklab, var(--cloud) 17%, transparent), transparent 70%),
+  radial-gradient(ellipse 44% 14% at 55% 92%, color-mix(in oklab, var(--cloud) 19%, transparent), transparent 70%); filter: blur(10px); }
+.sky-gate-left { left: 0; border-right: 1px solid color-mix(in oklab, var(--gold) 30%, transparent); box-shadow: 30px 0 70px color-mix(in oklab, var(--sky-deep) 85%, transparent); animation: cloud-drift-a 9s ease-in-out infinite; }
+.sky-gate-right { right: 0; border-left: 1px solid color-mix(in oklab, var(--gold) 30%, transparent); box-shadow: -30px 0 70px color-mix(in oklab, var(--sky-deep) 85%, transparent); animation: cloud-drift-b 9s ease-in-out infinite; }
 .is-opening .sky-gate-left { animation: gate-left 1.5s cubic-bezier(.66,0,.17,1) .15s forwards; }
 .is-opening .sky-gate-right { animation: gate-right 1.5s cubic-bezier(.66,0,.17,1) .15s forwards; }
-.sky-open-btn { position: relative; z-index: 2; display: grid; place-items: center; gap: 22px; padding: 0; border: 0; background: none; cursor: pointer; transition: opacity .4s, transform .4s; }
+.sky-open-btn { position: relative; z-index: 2; display: grid; place-items: center; padding: 0; border: 0; background: none; cursor: pointer; transition: opacity .4s, transform .4s; }
 .is-opening .sky-open-btn { opacity: 0; transform: scale(1.2); }
-.sky-open-moon { width: 96px; height: 96px; border-radius: 50%; background: radial-gradient(circle at 36% 32%, #fffdf6, var(--cloud) 42%, color-mix(in oklab, var(--gold-soft) 60%, var(--cloud)) 66%, color-mix(in oklab, var(--gold) 55%, var(--sky-deep))); animation: moon-pulse 3.2s ease-in-out infinite; }
-.sky-open-text { font-size: 10px; letter-spacing: .46em; text-transform: uppercase; color: var(--gold-soft); text-shadow: 0 0 12px color-mix(in oklab, var(--gold) 45%, transparent); }
+.sky-open-ring { width: 120px; height: 120px; border-radius: 50%; border: 1px solid color-mix(in oklab, var(--gold) 65%, transparent); animation: moon-pulse 3.2s ease-in-out infinite; }
+.sky-open-text { position: absolute; font-size: 10px; letter-spacing: .42em; text-transform: uppercase; color: var(--gold-soft); text-shadow: 0 0 12px color-mix(in oklab, var(--gold) 45%, transparent); white-space: nowrap; }
 
 /* Music toggle */
 @keyframes music-ring { 0% { transform: scale(1); opacity: .6; } 100% { transform: scale(1.7); opacity: 0; } }
