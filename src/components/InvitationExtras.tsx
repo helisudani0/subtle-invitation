@@ -28,19 +28,15 @@ export function GoldSparkles({ count = 34 }: { count?: number }) {
   );
 }
 
-export function EnvelopeIntro({ opening, onOpen }: { opening: boolean; onOpen: () => void }) {
+export function SkyIntro({ opening, onOpen }: { opening: boolean; onOpen: () => void }) {
   return (
-    <div className={`envelope-intro ${opening ? "is-opening" : ""}`}>
-      <button type="button" className="envelope" onClick={onOpen} aria-label="Open the invitation">
-        <span className="envelope-flap" />
-        <span className="envelope-body" />
-        <span className="wax-seal">
-          <em>M</em>
-          <small>&amp;</small>
-          <em>A</em>
-        </span>
+    <div className={`sky-intro ${opening ? "is-opening" : ""}`}>
+      <span className="sky-gate sky-gate-left" aria-hidden="true" />
+      <span className="sky-gate sky-gate-right" aria-hidden="true" />
+      <button type="button" className="sky-open-btn" onClick={onOpen} aria-label="Open the invitation">
+        <span className="sky-open-moon" aria-hidden="true" />
+        <span className="sky-open-text">Part the clouds</span>
       </button>
-      <p className="envelope-hint">Tap the seal to open</p>
     </div>
   );
 }

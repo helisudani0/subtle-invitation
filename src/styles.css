@@ -248,7 +248,7 @@
   .venue-link,.calendar-link { padding: 9px 10px; font-size: 8px; }
 }
 
-/* Hold the opening sky animation until the envelope is opened */
+/* Hold the opening sky animation until the sky intro is opened */
 .invitation-shell:not(.is-open) .hero-copy,
 .invitation-shell:not(.is-open) .cloud-veil,
 .invitation-shell:not(.is-open) .descend-cue { animation-play-state: paused; }
@@ -269,27 +269,27 @@
 .jali-corners .br { bottom: 12px; right: 12px; transform: scale(-1); }
 .jharokha-arch { position: absolute; top: 14px; left: 50%; translate: -50% 0; width: 46%; height: auto; color: var(--gold); opacity: .7; }
 
-/* Envelope intro */
-@keyframes flap-open { to { transform: rotateX(180deg); } }
-@keyframes seal-break { 0% { transform: translate(-50%, -50%) scale(1); } 40% { transform: translate(-50%, -50%) scale(1.12); } 100% { transform: translate(-50%, -50%) scale(.4) rotate(-25deg); opacity: 0; } }
-@keyframes envelope-fade { 0%, 55% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
-@keyframes envelope-lift { to { transform: translateY(40px) scale(1.15); } }
-@keyframes seal-glow { 0%, 100% { box-shadow: 0 6px 18px color-mix(in oklab, var(--sky-deep) 50%, transparent), 0 0 0 0 color-mix(in oklab, var(--gold) 45%, transparent); } 50% { box-shadow: 0 6px 18px color-mix(in oklab, var(--sky-deep) 50%, transparent), 0 0 0 12px transparent; } }
-.envelope-intro { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; align-content: center; gap: 28px; background: radial-gradient(ellipse at center, color-mix(in oklab, var(--sky-bright) 30%, var(--sky-deep)), var(--sky-deep) 72%); }
-.envelope-intro.is-opening { animation: envelope-fade 1.7s ease forwards; }
-.envelope { position: relative; width: min(78vw, 380px); aspect-ratio: 3 / 2; padding: 0; border: 0; background: none; cursor: pointer; perspective: 900px; }
-.envelope-body { position: absolute; inset: 0; background: linear-gradient(158deg, var(--cloud), color-mix(in oklab, var(--gold-soft) 60%, var(--cloud))); border: 1px solid color-mix(in oklab, var(--gold) 70%, transparent); box-shadow: 0 30px 80px color-mix(in oklab, var(--sky-deep) 80%, transparent), inset 0 0 0 6px color-mix(in oklab, var(--gold) 14%, transparent); }
-.envelope-body::before { content: ""; position: absolute; inset: 0; background: linear-gradient(to top right, transparent 49.6%, color-mix(in oklab, var(--gold) 45%, transparent) 50%, transparent 50.4%), linear-gradient(to top left, transparent 49.6%, color-mix(in oklab, var(--gold) 45%, transparent) 50%, transparent 50.4%); }
-.envelope-flap { position: absolute; z-index: 2; top: 0; left: 0; right: 0; height: 58%; transform-origin: top; clip-path: polygon(0 0, 100% 0, 50% 100%); background: linear-gradient(180deg, color-mix(in oklab, var(--gold-soft) 70%, var(--cloud)), color-mix(in oklab, var(--gold-soft) 90%, var(--gold))); filter: drop-shadow(0 4px 6px color-mix(in oklab, var(--sky-deep) 30%, transparent)); }
-.is-opening .envelope { animation: envelope-lift 1.4s cubic-bezier(.6,0,.3,1) .4s forwards; }
-.is-opening .envelope-flap { animation: flap-open .8s cubic-bezier(.6,0,.3,1) .35s forwards; }
-.wax-seal { position: absolute; z-index: 3; top: 58%; left: 50%; transform: translate(-50%, -50%); width: 74px; height: 74px; border-radius: 50%; display: flex; align-items: center; justify-content: center; gap: 2px; background: radial-gradient(circle at 35% 30%, color-mix(in oklab, var(--festive-red) 70%, var(--gold)), var(--festive-red) 60%, color-mix(in oklab, var(--festive-red) 70%, var(--sky-deep))); color: var(--gold-soft); font-family: var(--font-display); animation: seal-glow 2.4s ease-in-out infinite; }
-.wax-seal::before { content: ""; position: absolute; inset: 6px; border-radius: 50%; border: 1px dashed color-mix(in oklab, var(--gold) 60%, transparent); }
-.wax-seal em { font-style: normal; font-size: 22px; }
-.wax-seal small { font-size: 12px; color: var(--gold); }
-.is-opening .wax-seal { animation: seal-break .5s ease forwards; }
-.envelope-hint { margin: 0; font-size: 9px; letter-spacing: .4em; text-transform: uppercase; color: var(--gold-soft); opacity: .85; }
-.is-opening .envelope-hint { opacity: 0; transition: opacity .3s; }
+/* Sky intro — clouds part to reveal the invitation */
+@keyframes gate-left { to { transform: translateX(-104%); } }
+@keyframes gate-right { to { transform: translateX(104%); } }
+@keyframes sky-intro-fade { 0%, 70% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+@keyframes moon-pulse { 0%, 100% { box-shadow: 0 0 24px 4px color-mix(in oklab, var(--gold-soft) 45%, transparent); } 50% { box-shadow: 0 0 44px 12px color-mix(in oklab, var(--gold-soft) 65%, transparent); } }
+.sky-intro { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; overflow: hidden; background: var(--sky-deep); }
+.sky-intro.is-opening { animation: sky-intro-fade 1.7s ease forwards; pointer-events: none; }
+.sky-gate { position: absolute; top: -6%; bottom: -6%; width: 56%; background: linear-gradient(180deg, color-mix(in oklab, var(--sky-bright) 24%, var(--sky-deep)), var(--sky-deep) 70%); will-change: transform; }
+.sky-gate::before, .sky-gate::after { content: ""; position: absolute; top: 0; bottom: 0; width: 100%; background: radial-gradient(ellipse at center, color-mix(in oklab, var(--cloud) 55%, transparent), transparent 68%); filter: blur(26px); }
+.sky-gate-left { left: 0; border-right: 1px solid color-mix(in oklab, var(--gold) 30%, transparent); box-shadow: 24px 0 60px color-mix(in oklab, var(--sky-deep) 80%, transparent); }
+.sky-gate-left::before { left: -30%; }
+.sky-gate-left::after { right: -45%; }
+.sky-gate-right { right: 0; border-left: 1px solid color-mix(in oklab, var(--gold) 30%, transparent); box-shadow: -24px 0 60px color-mix(in oklab, var(--sky-deep) 80%, transparent); }
+.sky-gate-right::before { right: -30%; }
+.sky-gate-right::after { left: -45%; }
+.is-opening .sky-gate-left { animation: gate-left 1.5s cubic-bezier(.66,0,.17,1) .15s forwards; }
+.is-opening .sky-gate-right { animation: gate-right 1.5s cubic-bezier(.66,0,.17,1) .15s forwards; }
+.sky-open-btn { position: relative; z-index: 2; display: grid; place-items: center; gap: 18px; padding: 0; border: 0; background: none; cursor: pointer; transition: opacity .4s, transform .4s; }
+.is-opening .sky-open-btn { opacity: 0; transform: scale(1.2); }
+.sky-open-moon { width: 84px; height: 84px; border-radius: 50%; background: radial-gradient(circle at 38% 34%, var(--cloud), color-mix(in oklab, var(--gold-soft) 55%, var(--cloud)) 58%, color-mix(in oklab, var(--gold) 60%, var(--sky-deep))); animation: moon-pulse 3s ease-in-out infinite; }
+.sky-open-text { font-size: 9px; letter-spacing: .42em; text-transform: uppercase; color: var(--gold-soft); opacity: .9; }
 
 /* Music toggle */
 @keyframes music-ring { 0% { transform: scale(1); opacity: .6; } 100% { transform: scale(1.7); opacity: 0; } }
