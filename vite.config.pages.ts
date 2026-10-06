@@ -20,10 +20,6 @@ export default defineConfig({
     tailwindcss(),
     tanstackStart(),
     viteReact(),
-    nitro({
-      preset: "static",
-      baseURL: "/subtle-invitation/",
-      prerender: { routes: ["/"] },
-    }),
+    nitro({ preset: "static", baseURL: "/subtle-invitation/" }),
   ],
 });
